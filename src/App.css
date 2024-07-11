@@ -1,0 +1,271 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+.header-component {
+  display: flex;
+  width: 100%;
+}
+
+.nav-bar {
+  display: flex;
+  width: 100%;
+  height: 5rem;
+  background-color:white;
+  color: #606776;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+}
+
+.company-name {
+  color: #265df5;
+  font-weight: 800;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-liiks {
+  display: flex;
+  gap: 2rem;
+  font-size: 1.3rem;
+}
+
+.nav-liiks a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+  font-size: 1rem;
+}
+
+.search-input-div input {
+  padding: .5rem;
+  border: 1px solid #606776;
+  outline: none;
+  width:16rem;
+}
+
+.search-input-div input::placeholder {
+  color: black;
+}
+
+.nav-buttons button {
+  width: 5rem;
+}
+
+.login-button {
+  background-color: #212529;
+  border: 1px solid white;
+  color: white;
+}
+
+.login-button a {
+  text-decoration: none;
+  color: white;
+  width: 100%;
+
+}
+
+.login-button a:hover {
+  color: black;
+}
+
+.logout-button {
+ 
+  border: 1px solid #606776;
+  color: #606776;
+}
+
+.logout-button:hover {
+  background-color: white;
+  color: black;
+}
+
+/* .login-button:hover {
+  background-color: white;
+  color: black;
+} */
+
+.register-button {
+  background-color: #FFC107;
+  border: none;
+  outline: none;
+}
+
+.nav-liiks a {
+  text-decoration: none;
+  font-size: 1.1rem;
+  color:#606776;
+}
+
+.home-page-container {
+  display: flex;
+}
+
+
+
+.home-page-container {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+
+}
+
+
+
+.job-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.job-item {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.job-item:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.job-item h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.job-item p {
+  margin: 10px 0 0;
+  font-size: 1em;
+  color: #555;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 88vh;
+}
+
+.user-card {
+  display: flex;
+  width: 450px;
+  height: auto;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.create-post-container {
+  width: 90%;
+  max-width: 90%; 
+  margin: 0 auto;
+  padding-left: 14rem;
+  padding-right: 10rem;
+  padding-top: 4rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-post-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.create-post-form > div {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.create-post-form > div > div {
+  width: calc(100% - 10px);
+}
+
+.create-post-form > div:nth-child(odd) > div {
+  margin-right: 10px; 
+}
+
+.create-post-form > div:nth-child(even) > div {
+  margin-left: 10px;
+}
+
+label {
+  width: 30%;
+  text-align: right;
+  padding-right: 10px;
+  font-weight: bold;
+}
+
+input {
+  width: 70%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+
+.create-post-button {
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  align-items:center ;
+  padding: 1rem;
+  
+}
+
+.create-post-button button {
+  width: 40%;
+  padding: 0.7rem;
+  background-color: #275df5;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  color: white;
+}
+
+.job-detail-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+}
+
+.job-deatil-conatiner {
+  width:60%;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.job-description {
+  color: black;
+  font-size: 1.3rem;
+}
+
+.job-title {
+  color: #606776;
+}
