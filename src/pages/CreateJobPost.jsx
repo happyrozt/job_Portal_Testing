@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import "../App.css";
 import Input from '../components/input/Input';
-import useGetDataFromLocalStr from '../components/CustomHook/useGetDatafromLocalstr';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUsersData } from '../store/Slice';
+
 
 function CreateJobPost() {
-  const { addUser,userEmail } = useGetDataFromLocalStr();
+ 
+  const userEmail = useSelector((state)=>state.Auth.logedUserData)
+
+
+const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     title: '',
     companyName: '',
@@ -73,12 +79,13 @@ function CreateJobPost() {
       const newData = {
         ...formData,
         id: generateRandomId(), 
-        email:userEmail,
+        email:userEmail.data.email,
         status:"active"
       };
       console.log("Form submitted:", newData);
-      addUser(newData);
+      dispatch(addUsersData(newData))
       clearState()
+      alert("Job Post Created")
     }
   };
 

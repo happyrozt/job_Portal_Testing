@@ -14,11 +14,12 @@
   display: flex;
   width: 100%;
   height: 5rem;
-  background-color:white;
+  background-color: white;
   color: #606776;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 1rem;
 
 }
 
@@ -53,7 +54,7 @@
   padding: .5rem;
   border: 1px solid #606776;
   outline: none;
-  width:16rem;
+  width: 16rem;
 }
 
 .search-input-div input::placeholder {
@@ -68,6 +69,7 @@
   background-color: #212529;
   border: 1px solid white;
   color: white;
+  border-radius: 10px;
 }
 
 .login-button a {
@@ -82,9 +84,10 @@
 }
 
 .logout-button {
- 
+
   border: 1px solid #606776;
   color: #606776;
+  border-radius: 10px;
 }
 
 .logout-button:hover {
@@ -101,12 +104,13 @@
   background-color: #FFC107;
   border: none;
   outline: none;
+  border-radius: 17px;
 }
 
 .nav-liiks a {
   text-decoration: none;
   font-size: 1.1rem;
-  color:#606776;
+  color: #606776;
 }
 
 .home-page-container {
@@ -172,7 +176,7 @@
 
 .create-post-container {
   width: 90%;
-  max-width: 90%; 
+  max-width: 90%;
   margin: 0 auto;
   padding-left: 14rem;
   padding-right: 10rem;
@@ -188,22 +192,22 @@
   flex-wrap: wrap;
 }
 
-.create-post-form > div {
+.create-post-form>div {
   width: 50%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
 }
 
-.create-post-form > div > div {
+.create-post-form>div>div {
   width: calc(100% - 10px);
 }
 
-.create-post-form > div:nth-child(odd) > div {
-  margin-right: 10px; 
+.create-post-form>div:nth-child(odd)>div {
+  margin-right: 10px;
 }
 
-.create-post-form > div:nth-child(even) > div {
+.create-post-form>div:nth-child(even)>div {
   margin-left: 10px;
 }
 
@@ -227,9 +231,9 @@ input {
   display: flex;
   width: 90%;
   justify-content: center;
-  align-items:center ;
+  align-items: center;
   padding: 1rem;
-  
+
 }
 
 .create-post-button button {
@@ -251,7 +255,7 @@ input {
 }
 
 .job-deatil-conatiner {
-  width:60%;
+  width: 60%;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   display: flex;
   flex-direction: column;
@@ -266,6 +270,338 @@ input {
   font-size: 1.3rem;
 }
 
+.apply-company-name {
+  color: #616890;
+  font-size: 1.2rem;
+}
+
 .job-title {
   color: #606776;
+}
+
+.ruppe-icon {
+  font-size: 1.4rem;
+}
+
+.job-apply-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.job-apply-button button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  padding: .6rem;
+  background-color: #275df5;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+}
+
+.send-proposal-page {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+  height: 35rem;
+
+}
+
+.proposal-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #616890;
+}
+
+.proposal-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.information-div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  gap: .3rem;
+}
+
+.information-div label {
+  text-align: left;
+  width: 100%;
+  padding-top: .3rem;
+}
+
+.information-div textarea {
+  width: 100%;
+  outline: none;
+}
+
+.resume-div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  gap: .3rem;
+}
+
+.resume-div label {
+  text-align: left;
+  width: 100%;
+  padding-top: .3rem;
+}
+
+.resume-div input {
+  width: 100%;
+}
+
+.proposal-send-button {
+  display: flex;
+  padding-top: 1rem;
+  width: 100%;
+}
+
+.proposal-send-button button {
+  padding: 0.7rem;
+  width: 100%;
+  background-color: #275df5;
+  outline: none;
+  border: none;
+  color: white;
+  border-radius: 10px;
+}
+
+.proposal-input-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.proposal-input-group input {
+  width: 100%;
+}
+
+.proposal-input-group label {
+  width: 100%;
+  justify-content: flex-start;
+  display: flex;
+}
+
+.appliedJobContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem;
+  width: 100%;
+}
+
+.applied-job-item {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+  width: 100%;
+}
+
+.appled-job-title {
+  padding: 1rem;
+}
+
+.praposal-list {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+  width: 100%;
+}
+
+
+.close-post-Button {
+  padding: .3rem;
+  outline: none;
+  margin-top: 0.3rem;
+  border: none;
+  background-color: #275df5;
+  color: white;
+  border-radius: 7px;
+}
+
+
+.praposal-buttons {
+  display: flex;
+  gap: 2rem;
+  padding-top: 1rem;
+  width: 100%;
+}
+
+.accept-button {
+  padding: .3rem;
+  outline: none;
+  margin-top: 0.3rem;
+  border: none;
+  background-color: #275df5;
+  color: white;
+  border-radius: 7px;
+  width: 5rem;
+}
+
+.reject-button {
+  padding: .3rem;
+  outline: none;
+  margin-top: 0.3rem;
+  border: none;
+  background-color: red;
+  color: white;
+  border-radius: 7px;
+  width: 5rem;
+}
+
+@media (max-width: 1290px) {
+  .create-post-container {
+    padding-left: 8rem;
+    padding-right: 8rem;
+  }
+  .form-group label {
+    width: 40%;
+  
+  }
+}
+
+
+@media (max-width: 1200px) {
+  .create-post-container {
+    padding-left: 8rem;
+    padding-right: 8rem;
+  }
+
+  .job-deatil-conatiner {
+    width: 80%;
+  }
+  .form-group label {
+    width: 50%;
+  
+  }
+}
+
+@media (max-width: 992px) {
+  .nav-liiks {
+    gap: 1rem;
+  }
+
+  .search-input-div input {
+    width: 12rem;
+  }
+
+  .create-post-container {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  .job-deatil-conatiner {
+    width: 90%;
+  }
+  .form-group label {
+    width: 50%;
+  
+  }
+}
+
+@media (max-width: 871px) {
+  .nav-bar {
+    flex-direction: column;
+    height: 10rem;
+    justify-content: space-evenly;
+  }
+
+  .nav-liiks {
+    gap: 2rem;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .nav-buttons {
+    display: flex;
+    gap: 1rem;
+    font-size: 1rem;
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .search-input-div {
+    width: 100%;
+  }
+  .search-input-div input {
+    width: 100%;
+  }
+
+  .form-group label {
+    width: 90%;
+  
+  }
+
+}
+
+
+@media (max-width:640px){
+  .nav-liiks {
+    gap: .7rem;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+  .form-group label {
+    width: 90%;
+  
+  }
+}
+
+
+
+@media (max-width:560px){
+  .nav-bar {
+    flex-direction: column;
+    height: 18rem;
+    justify-content: space-evenly;
+  }
+  .nav-liiks {
+    gap: .7rem;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .create-post-form>div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .create-post-container {
+    padding: .3rem;
+  }
+
+  .create-post-form>div:nth-child(even)>div {
+    margin: 0px;
+  }
+  .form-group label {
+    width: 90%;
+  
+  }
 }

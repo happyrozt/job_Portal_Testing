@@ -1,14 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../App.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkLoggedIn, setUserRole } from '../../store/Slice';
+import { checkLoggedIn, setUserRole, setUserData, getSearchedData, userLogout } from '../../store/Slice';
 import { useNavigate } from 'react-router-dom';
-import useGetDatafromLocalstr from '../CustomHook/useGetDatafromLocalstr';
+
 
 export default function Header() {
-    const userLogged = useSelector((state) => state.Auth.isUserLoggedIn);
     const checkUserRole = useSelector((state) => state.Auth.isUserRole);
-    const { isLoggedIn, userRole, removeLoggedUser } = useGetDatafromLocalstr();
+    const checkUserLogged = useSelector((state) => state.Auth.logedUserData)
+    const logedUserData = useSelector((state)=>state.Auth.logedUserData)
+    const isUserRole = useSelector((state)=>state.Auth.isUserRole)
+    const isUserLoggedIn = useSelector((state)=>state.Auth.isUserLoggedIn)
+    const [searchQuery, setSearchQuery] = useState('');
+ 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -16,20 +20,25 @@ export default function Header() {
         navigate("/login");
     };
 
+    const handleSearch = (event) => {
+        const query = event.target.value;
+        setSearchQuery(query);
+        dispatch(getSearchedData(query))
+       
+      };
+
     const handleLogout = () => {
-        removeLoggedUser();
-        dispatch(checkLoggedIn(null));
+        dispatch(userLogout(null))
         dispatch(setUserRole(null));
         navigate("/");
     };
 
     useEffect(() => {
-        if (isLoggedIn !== null && userRole !== null) {
-            dispatch(checkLoggedIn(isLoggedIn));
-            dispatch(setUserRole(userRole));
+        
+        if (logedUserData  && isUserRole == null) {
+            dispatch(setUserRole(logedUserData.data.role));
         }
-
-    }, [isLoggedIn, dispatch, userLogged]);
+    }, [logedUserData , dispatch, checkUserLogged,isUserLoggedIn]);
 
     return (
         <div className='header-component'>
@@ -39,14 +48,14 @@ export default function Header() {
                     <a href='/'>Home</a>
                     {checkUserRole === "Freelancer" && (
                         <>
-                            <a href='#applied-jobs'>Applied Jobs</a>
+                            <a href='/applyedjobs'>Applied Jobs</a>
                         </>
                     )}
 
                     {checkUserRole === "Hirer" && (
                         <>
                             <a href='/createjobpost'>Create Job Post</a>
-                            <a href='#view-proposal'>View Proposal</a>
+                            <a href='/proposals'>View Proposal</a>
                             <a href='/closejobpost'>Closed Jobs</a>
                         </>
                     )}
@@ -54,12 +63,16 @@ export default function Header() {
 
                 <div className='nav-buttons'>
                     <div className='search-input-div'>
-                        <input type="text" placeholder='search job' />
+                        <input
+                            type="text"
+                            placeholder='Search job'
+                            value={searchQuery}
+                            onChange={handleSearch}
+                        />
                     </div>
-                    {userLogged === null ? (
+                    {logedUserData === null  ? (
                         <>
                             <button className='register-button' onClick={handleNavigate}>Login</button>
-                            {/* <button className='register-button' onClick={handleNavigate}>Register</button> */}
                         </>
                     ) : (
                         <>

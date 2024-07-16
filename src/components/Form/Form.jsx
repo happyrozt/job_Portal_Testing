@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Form.css';
 import Input from '../input/Input';
 import { useDispatch } from 'react-redux';
-import { checkLoggedIn } from '../../store/Slice';
+import { checkLoggedIn,setUserData, setUserRole  } from '../../store/Slice';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterOptions = [
@@ -109,9 +109,11 @@ function Form() {
       
       const loggedUsers = JSON.parse(localStorage.getItem('loggedUsers')) || {};
       loggedUsers["data"] = storedUsers[userIndex];
-      localStorage.setItem('loggedUsers', JSON.stringify(loggedUsers));
+      // localStorage.setItem('loggedUsers', JSON.stringify(loggedUsers));
       handleClear()
-      dispatch(checkLoggedIn(true))
+      // dispatch(checkLoggedIn(true))
+      dispatch(setUserData(loggedUsers))
+      dispatch(setUserRole(loggedUsers.data.role))
       console.log('Login successful');
       navigate('/')
     } else {

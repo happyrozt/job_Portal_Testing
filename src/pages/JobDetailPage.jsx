@@ -1,38 +1,65 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-
+import React, { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { RiMoneyRupeeCircleFill } from "react-icons/ri";
+import { MdWorkOutline } from "react-icons/md";
+import { IoLocationOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserSelectedjob } from '../store/Slice';
 function JobDetailPage() {
-  const location = useLocation();
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const { id } = useParams();
+    const selectJob = useSelector((state)=>state.Auth.selectJob)
+    const isApplied = useSelector((state)=>state.Auth.isApplied)
+    const handleApply = () => {
+        if(isApplied=== false){
+            navigate(`/proposal/${id}`);
+        }else{
+            alert('You have already applied for this job.');
+        }
+       
+    };
 
-  // Safe access to location.state
-  const { job } = location.state || {};
+    useEffect(() => {
+        if (!selectJob && id) {
+            dispatch(fetchUserSelectedjob(id));
+        }
+    }, [dispatch, id, selectJob]);
 
-  // If job is undefined, handle it gracefully
-  if (!job) {
-    return <div>No job details available. Please go back to the job listings.</div>;
-  }
+    if (!selectJob) {
+        return <div>No job details available. Please go back to the job listings.</div>;
+    }
 
-  const handleApply = () => {
-    navigate(`/send-proposal/${job.id}`, { state: { job } });
-  };
+    return (
+        <div className='job-detail-page'>
+            <div className='job-deatil-conatiner'>
 
-  return (
-    <div className='job-detail-page'>
-        <div className='job-deatil-conatiner'>
-        
-      <p className='job-description'>{job.description}</p>
-      <h1>{job.title}</h1>
-      <p>Industry: {job.industry}</p>
-      <p>Location: {job.location}</p>
-      <p>Work Mode: {job.workMode}</p>
-      <p>Skill: {job.skill}</p>
-      <p>Salary: {job.salary}</p>
-      <button onClick={handleApply}>Apply</button>
+                <p className='job-description'>{selectJob.description}</p>
+                <p className='apply-company-name'>{selectJob.companyName}</p>
+                <p className='job-title'>{selectJob.title}</p>
+
+                <div style={{ display: "flex", gap: "1rem" }}>
+                    <RiMoneyRupeeCircleFill className='ruppe-icon' />
+                    <p> {selectJob.selry}</p>
+                </div>
+                <div style={{ display: "flex", gap: "1rem" }}>
+                    <MdWorkOutline className='ruppe-icon' />
+                    <p> {selectJob.workMode}</p>
+                </div>
+
+                <div style={{ display: "flex", gap: "1rem" }}>
+                    <IoLocationOutline className='ruppe-icon' />
+                    <p> {selectJob.location}</p>
+                </div>
+                <p>Skill: {selectJob.skill}</p>
+                <div className='job-apply-button'>
+                    <button onClick={handleApply}>Apply</button>
+                </div>
+
+            </div>
+
         </div>
-      
-    </div>
-  );
+    );
 }
 
 export default JobDetailPage;
