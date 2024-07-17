@@ -38,7 +38,7 @@ function JobDetailPage() {
                 <p className='job-title'>{selectedJob.title}</p>
                 <div style={{ display: "flex", gap: "1rem" }}>
                     <RiMoneyRupeeCircleFill className='ruppe-icon' />
-                    <p> {selectedJob.selry}</p>
+                    <p> {selectedJob.salary}</p>
                 </div>
                 <div style={{ display: "flex", gap: "1rem" }}>
                     <MdWorkOutline className='ruppe-icon' />
