@@ -1,38 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getReceivedProposal, updateFreelancerProposalStatus, updateHirerProposalStatus } from '../store/Slice';
+import { setReceivedProposal } from '../store/Slice';
 import "../App.css";
+import { getUserProposalByEmail, updateAppliedJobStatus, updateProposalStatus } from '../utils/localStorageHelpers';
 
 function ViewProposalPage() {
-  const userEmail = useSelector((state) => state.Auth.logedUserData);
-  const receivedProposal = useSelector((state) => state.Auth.receivedProposal);
-  const [logedUserData, setLogedUserData] = useState([]);
+  const {logedUserData,receivedProposal} = useSelector((state)=>state.Auth)
+  const [parPosalData, setParPosalData] = useState([]);
   const dispatch = useDispatch();
-  const hirerEmail = userEmail.data.email;
+  const hirerEmail = logedUserData.data.email;
 
   useEffect(() => {
-    dispatch(getReceivedProposal(userEmail.data.email));
-  }, [dispatch, userEmail]);
+    let getUserRecivedProposalResult = getUserProposalByEmail(logedUserData.data.email)
+    dispatch(setReceivedProposal(getUserRecivedProposalResult));
+  }, [dispatch, logedUserData]);
 
   useEffect(() => {
     if (receivedProposal) {
       const activeProposals = receivedProposal.filter(proposal => proposal.status !== 'rejected');
-      setLogedUserData(activeProposals);
+      setParPosalData(activeProposals);
     }
   }, [receivedProposal]);
 
-  const handleUpdateStatus = (id, email, hirerEmail, newStatus) => {
-    dispatch(updateFreelancerProposalStatus({ email, id, status: newStatus }));
-    dispatch(updateHirerProposalStatus({ hirerEmail, id, status: newStatus }));
-    dispatch(getReceivedProposal(userEmail.data.email));
-    alert(`Proposal ${newStatus}`);
+  const handleUpdateStatus = (id, email, hirerEmail, status) => {
+    updateAppliedJobStatus(email, id, status);
+    updateProposalStatus(hirerEmail, id, status);
+    let getUserRecivedProposalResult = getUserProposalByEmail(logedUserData.data.email)
+    dispatch(setReceivedProposal(getUserRecivedProposalResult));
+    alert(`Proposal ${status}`);
   };
 
   return (
     <div className='home-page-container'>
       <div className='job-list'>
-        {logedUserData && logedUserData.length > 0 ? (
-          logedUserData.map((proposal, index) => (
+        {parPosalData && parPosalData.length > 0 ? (
+          parPosalData.map((proposal, index) => (
             <div key={index} className='job-item'>
               <h2>Applied for {proposal.appledFor}</h2>
               <p>Name: {proposal.name}</p>
@@ -40,11 +42,11 @@ function ViewProposalPage() {
               <p>Experience: {proposal.experience}</p>
               <p>Email: {proposal.email}</p>
               <p>Status: {proposal.status}</p>
-              <div className='praposal-buttons'>
+              <div className='proposal-buttons'>
                 <button className='accept-button' onClick={() => handleUpdateStatus(proposal.id, proposal.email, hirerEmail, 'accepted')}>
                   Accept
                 </button>
-                <button className='reject-button'  onClick={() => handleUpdateStatus(proposal.id, proposal.email, hirerEmail, 'rejected')}>
+                <button className='reject-button' onClick={() => handleUpdateStatus(proposal.id, proposal.email, hirerEmail, 'rejected')}>
                   Reject
                 </button>
               </div>

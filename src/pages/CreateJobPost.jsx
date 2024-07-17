@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import "../App.css";
 import Input from '../components/input/Input';
 import { useDispatch, useSelector } from 'react-redux';
-import { addUsersData } from '../store/Slice';
+import { setUsersJobData } from '../store/Slice';
+import { addUserJobDetail } from '../utils/localStorageHelpers';
 
 
 function CreateJobPost() {
  
-  const userEmail = useSelector((state)=>state.Auth.logedUserData)
+  const logedUserData = useSelector((state)=>state.Auth.logedUserData)
 
 
 const dispatch = useDispatch();
@@ -79,12 +80,13 @@ const dispatch = useDispatch();
       const newData = {
         ...formData,
         id: generateRandomId(), 
-        email:userEmail.data.email,
+        email:logedUserData.data.email,
         status:"active"
       };
       console.log("Form submitted:", newData);
-      dispatch(addUsersData(newData))
-      clearState()
+      let setUserJobResult = addUserJobDetail(newData)
+       dispatch(setUsersJobData(setUserJobResult))
+       clearState()
       alert("Job Post Created")
     }
   };

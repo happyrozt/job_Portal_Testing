@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import './Form.css';
 import Input from '../input/Input';
-import { useDispatch } from 'react-redux';
-import { checkLoggedIn,setUserData, setUserRole  } from '../../store/Slice';
+import { useDispatch, useSelector } from 'react-redux';
+import {checkLoggedIn,registerUser,setUserData, setUserRole  } from '../../store/Slice';
 import { useNavigate } from 'react-router-dom';
+import { setInLocalStorage } from '../../utils/localStorageHelpers';
+
 
 const RegisterOptions = [
   { name: 'username', label: 'User Name', type: 'text', placeholder: 'User Name' },
@@ -29,6 +31,8 @@ function Form() {
     role: ''
   });
 
+  const registerUserData  = useSelector((state)=>state.Auth.registerUserData)
+  const logedUserData = useSelector((state)=>state.Auth.logedUserData)
   const [errors, setErrors] = useState({});
 
   const validate = () => {
@@ -81,6 +85,11 @@ function Form() {
       return;
     }
 
+    if (isEmailExists) {
+      setErrors({ email: 'Email already registered' });
+      return;
+    }
+
     const newUserData = {
       username: formData.username,
       lastName: formData.lastName,
@@ -97,6 +106,7 @@ function Form() {
     handleClear()
   };
 
+
   const handleLogin = () => {
     const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
     const userIndex = storedUsers.findIndex(user => user.email === formData.email && user.password === formData.password);
@@ -109,11 +119,11 @@ function Form() {
       
       const loggedUsers = JSON.parse(localStorage.getItem('loggedUsers')) || {};
       loggedUsers["data"] = storedUsers[userIndex];
-      // localStorage.setItem('loggedUsers', JSON.stringify(loggedUsers));
-      handleClear()
-      // dispatch(checkLoggedIn(true))
-      dispatch(setUserData(loggedUsers))
+       localStorage.setItem('loggedUsers', JSON.stringify(loggedUsers));
+      
+       dispatch(setUserData(loggedUsers))
       dispatch(setUserRole(loggedUsers.data.role))
+      handleClear()
       console.log('Login successful');
       navigate('/')
     } else {
@@ -128,6 +138,7 @@ function Form() {
       ...formData,
       [name]: value
     });
+    // dispatch(authEmail(formData.email))
   };
 
   const handleSubmit = (e) => {

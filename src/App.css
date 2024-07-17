@@ -435,13 +435,14 @@ input {
   outline: none;
   margin-top: 0.3rem;
   border: none;
-  background-color: #275df5;
+  background-color: red;
   color: white;
   border-radius: 7px;
+  width:6rem
 }
 
 
-.praposal-buttons {
+.proposal-buttons {
   display: flex;
   gap: 2rem;
   padding-top: 1rem;
@@ -468,6 +469,22 @@ input {
   color: white;
   border-radius: 7px;
   width: 5rem;
+}
+
+.job-status-buttondiv {
+  display: flex;
+  width: 100%;
+
+}
+.active-post-Button {
+  padding: .3rem;
+  outline: none;
+  margin-top: 0.3rem;
+  border: none;
+  background-color: #275df5;
+  color: white;
+  border-radius: 7px;
+  width:6rem
 }
 
 @media (max-width: 1290px) {

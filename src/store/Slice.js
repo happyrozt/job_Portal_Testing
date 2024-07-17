@@ -1,103 +1,88 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addProposalToUser, addUser, checkFreelancerApplicationStatus, filterHirersByTitle, getDataById, getFromLocalStorage, getUserDataByEmail, getUserProposalByEmail, getUsersWithRoleHirer, setInLocalStorage, setuserAppliedJobData, toggleJobStatus, updateAppliedJobStatus, updateProposalStatus } from "../utils/localStorageHelpers";
+import {  getLoggeduserDatafromlocStr, getUsersWithRoleHirer } from "../utils/localStorageHelpers";
 const initialState = {
     isUserLoggedIn: null,
     isUserRole: null,
-    logedUserData: getFromLocalStorage('loggedUsers'),
-    jobsData: getUsersWithRoleHirer(),
-    addUserData: null,
+    logedUserData: null,
+    jobsData: null,
+    userJobData: null,
     jobPostStatus: null,
     closeJobData: [],
-    selectJob: null,
+    selectedJob: null,
     proposal: null,
     appliedJobData: null,
     receivedProposal: [],
     userSearchedData: [],
-    isApplied:false,
-
+    isApplied: false,
+    verifyEmail: false,
+    registerUserData: null,
 }
 
 const userAuthSlice = createSlice({
     name: "Auth",
     initialState,
     reducers: {
+        getLoggeduserData: (state, action) => {
+            state.logedUserData = action.payload;
+        },
         checkLoggedIn: (state, action) => {
             state.isUserLoggedIn = action.payload
         },
         userLogout: (state, action) => {
             state.isUserLoggedIn = action.payload,
-                state.logedUserData = action.payload,
-                localStorage.removeItem("loggedUsers")
+            state.logedUserData = action.payload
         },
         setUserRole: (state, action) => {
             state.isUserRole = action.payload
         },
         setUserData: (state, action) => {
-            state.logedUserData = action.payload
-            setInLocalStorage('loggedUsers', action.payload);
+            state.logedUserData = action.payload 
         },
         setAllHirerData: (state, action) => {
-            state.jobsData = getUsersWithRoleHirer()
+            state.jobsData = action.payload
         },
-        addUsersData: (state, action) => {
-            state.addUserData = action.payload
-
-            addUser(action.payload)
+        setUsersJobData: (state, action) => {
+            state.userJobData = action.payload
         },
         updateJobPoststatus: (state, action) => {
             state.jobPostStatus = action.payload
-            toggleJobStatus(action.payload)
         },
         getUserLogedUserDataByEmail: (state, action) => {
-            state.closeJobData = getUserDataByEmail(action.payload)
+            state.closeJobData = action.payload
         },
 
-        userSelectJob: (state, action) => {
-            state.selectJob = action.payload
+        userSelectedJob: (state, action) => {
+            state.selectedJob = action.payload
         },
 
         sendProposal: (state, action) => {
-
-            state.proposal = addProposalToUser(action.payload)
+            state.proposal = action.payload
         },
 
         getAppliedJobData: (state, action) => {
-            state.appliedJobData = getUserDataByEmail(action.payload)
+            state.appliedJobData = action.payload
         },
 
-        saveAppliedJobData: (state, action) => {
-            state.appliedJobData = setuserAppliedJobData(action.payload)
+        setAppliedJobData: (state, action) => {
+            state.appliedJobData = action.payload
         },
-        getReceivedProposal: (state, action) => {
-            state.receivedProposal = getUserProposalByEmail(action.payload)
+        setReceivedProposal: (state, action) => {
+            state.receivedProposal = action.payload
         },
-        getSearchedData: (state, action) => {
-            state.userSearchedData = filterHirersByTitle(action.payload)
+        setSearchedData: (state, action) => {
+            state.userSearchedData = action.payload
         },
-        updateFreelancerProposalStatus: (state, action) => {
-            let { email, id, status } = action.payload;
-            updateAppliedJobStatus(email, id, status);
-        },
-        updateHirerProposalStatus: (state, action) => {
-            let { hirerEmail, id, status } = action.payload;
-            updateProposalStatus(hirerEmail, id, status);
-        },
-        fetchUserSelectedjob: (state, action) => {
-            state.selectJob = getDataById(action.payload)
-        },
+
         checkFreeLancerJobApplication: (state, action) => {
-            const { email, id } = action.payload;
-            state.isApplied = checkFreelancerApplicationStatus(email, id)
+            state.isApplied = action.payload;
         }
-
-
-
     }
 })
 
 
-export const { checkLoggedIn, userLogout, setUserRole, setUserData, addUsersData, updateJobPoststatus,
-    getUserLogedUserDataByEmail, userSelectJob, sendProposal, getAppliedJobData, saveAppliedJobData,
-    getReceivedProposal, getSearchedData, updateFreelancerProposalStatus, updateHirerProposalStatus, fetchUserSelectedjob, checkFreeLancerJobApplication } = userAuthSlice.actions;
+export const { getLoggeduserData, checkLoggedIn, userLogout, setUserRole, setUserData, setUsersJobData, updateJobPoststatus,
+    getUserLogedUserDataByEmail, userSelectedJob, sendProposal, getAppliedJobData, setAppliedJobData,
+    setReceivedProposal, setSearchedData,
+    fetchUserSelectedjob, checkFreeLancerJobApplication, authEmail, registerUser, setAllHirerData } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;

@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import '../../App.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkLoggedIn, setUserRole, setUserData, getSearchedData, userLogout } from '../../store/Slice';
+import { checkLoggedIn, setUserRole, setUserData, setSearchedData, userLogout } from '../../store/Slice';
 import { useNavigate } from 'react-router-dom';
+import { filterHirersByTitle } from '../../utils/localStorageHelpers';
 
 
 export default function Header() {
-    const checkUserRole = useSelector((state) => state.Auth.isUserRole);
-    const checkUserLogged = useSelector((state) => state.Auth.logedUserData)
-    const logedUserData = useSelector((state)=>state.Auth.logedUserData)
-    const isUserRole = useSelector((state)=>state.Auth.isUserRole)
-    const isUserLoggedIn = useSelector((state)=>state.Auth.isUserLoggedIn)
+    const {isUserRole,logedUserData} = useSelector((state)=>state.Auth)
     const [searchQuery, setSearchQuery] = useState('');
  
     const dispatch = useDispatch();
@@ -23,22 +20,23 @@ export default function Header() {
     const handleSearch = (event) => {
         const query = event.target.value;
         setSearchQuery(query);
-        dispatch(getSearchedData(query))
+       let searchJobByUser = filterHirersByTitle(query)
+        dispatch(setSearchedData(searchJobByUser))
        
       };
 
     const handleLogout = () => {
         dispatch(userLogout(null))
         dispatch(setUserRole(null));
+        localStorage.removeItem("loggedUsers")
         navigate("/");
     };
 
     useEffect(() => {
-        
         if (logedUserData  && isUserRole == null) {
             dispatch(setUserRole(logedUserData.data.role));
         }
-    }, [logedUserData , dispatch, checkUserLogged,isUserLoggedIn]);
+    }, [logedUserData , dispatch]);
 
     return (
         <div className='header-component'>
@@ -46,13 +44,13 @@ export default function Header() {
                 <div className='nav-liiks'>
                     <div className='company-name'>Zasya</div>
                     <a href='/'>Home</a>
-                    {checkUserRole === "Freelancer" && (
+                    {isUserRole === "Freelancer" && (
                         <>
                             <a href='/applyedjobs'>Applied Jobs</a>
                         </>
                     )}
 
-                    {checkUserRole === "Hirer" && (
+                    {isUserRole === "Hirer" && (
                         <>
                             <a href='/createjobpost'>Create Job Post</a>
                             <a href='/proposals'>View Proposal</a>

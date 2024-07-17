@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import useGetDatafromLocalstr from '../components/CustomHook/useGetDatafromLocalstr';
-import { addUsersData, fetchUserSelectedjob, saveAppliedJobData, sendProposal } from '../store/Slice';
+import { fetchUserSelectedjob, setAppliedJobData, sendProposal, userSelectedJob } from '../store/Slice';
+import "../App.css";
+import { addProposalDataToUser, getDataById, setuserAppliedJobData } from '../utils/localStorageHelpers';
 
 function SendProposalPage() {
   const { id } = useParams();
-  const selectJob = useSelector((state) => state.Auth.selectJob);
-  const logUserEmail = useSelector((state) => state.Auth.logedUserData).data.email;
+  const {selectedJob,logedUserData} = useSelector((state)=> state.Auth)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [proposal, setProposal] = useState({ resume: '', personalInfo: '' });
@@ -21,7 +21,19 @@ function SendProposalPage() {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setResumeFile(file);
+    if (file.type !== 'application/pdf') {
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        error: 'Only PDF files are allowed.'
+      }));
+      setResumeFile(null);
+    } else {
+      setResumeFile(file);
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        error: ''
+      }));
+    }
   };
 
   const handleChange = (e) => {
@@ -31,7 +43,6 @@ function SendProposalPage() {
       [name]: value
     }));
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,23 +56,25 @@ function SendProposalPage() {
       return;
     }
 
-    const hirerEmail = selectJob.email;
+    const hirerEmail = selectedJob.email;
     const proposalData = {
       name,
       education,
       experience,
       resume: resumeFile.name,
       personalInfo: proposal.personalInfo,
-      appledFor: selectJob.title,
-      status: "Panding",
-      id: selectJob.id,
-      email: logUserEmail
+      appledFor: selectedJob.title,
+      status: "Pending",
+      id: selectedJob.id,
+      email: logedUserData.data.email
     };
-    let payload = { hirerEmail, proposalData }
-
-    dispatch(sendProposal(payload))
-    let appliedPayload = { logUserEmail, selectJob }
-    dispatch(saveAppliedJobData(appliedPayload))
+    let payload = { hirerEmail, proposalData };
+    
+    
+    let addProposalDataToUserResult = addProposalDataToUser(hirerEmail, proposalData )
+    dispatch(sendProposal(addProposalDataToUserResult))
+    let appliedJobDataResult =setuserAppliedJobData(logedUserData.data.email, selectedJob);
+    dispatch(setAppliedJobData(appliedJobDataResult))
     setFormData({
       name: "",
       education: "",
@@ -70,24 +83,26 @@ function SendProposalPage() {
     });
     setProposal({ resume: '', personalInfo: '' });
     setResumeFile(null);
-    navigate('/applyedjobs');
+     navigate('/appliedjobs');
     console.log('Proposal submitted:', formData);
   };
-  useEffect(() => {
-    if (!selectJob && id) {
-        dispatch(fetchUserSelectedjob(id));
-    }
-}, [dispatch, id, selectJob]);
 
-if (!selectJob) {
+  useEffect(() => {
+    if (!selectedJob && id) {
+       let selctedJobresult =  getDataById(id)
+        dispatch(userSelectedJob(selctedJobresult));
+    }
+}, [dispatch, id, selectedJob]);
+
+  if (!selectedJob) {
     return <div>No job details available. Please go back to the job listings.</div>;
-}
+  }
 
   const { name, education, experience, error } = formData;
 
   return (
     <div className='send-proposal-page'>
-      <p className='proposal-title'>Apply for {selectJob.title}</p>
+      <p className='proposal-title'>Apply for {selectedJob.title}</p>
       <form onSubmit={handleSubmit} className='proposal-form'>
         <div className='proposal-input-group'>
           <label htmlFor="name">Name</label>

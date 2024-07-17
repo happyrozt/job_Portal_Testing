@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAppliedJobData, getUserLogedUserDataByEmail } from '../store/Slice';
+import { getAppliedJobData } from '../store/Slice';
 import '../App.css'
+import { getUserDataByEmail } from '../utils/localStorageHelpers';
 
 function AppliedJob() {
   const [appliedJobs, setAppliedJobs] = useState([]);
-  const getLogUser = useSelector((state) => state.Auth.logedUserData);
-  const applyedJobsPageData = useSelector((state) => state.Auth.appliedJobData);
+  const {logedUserData,appliedJobData} = useSelector((state)=> state.Auth)
   const dispatch = useDispatch();
+  useEffect(() => {
+    if (logedUserData && logedUserData.data && logedUserData.data.email) {
+     let getAppliedJobresult = getUserDataByEmail(logedUserData.data.email)
+      dispatch(getAppliedJobData(getAppliedJobresult));
+    }
+  }, [dispatch, logedUserData]);
 
   useEffect(() => {
-    if (getLogUser && getLogUser.data && getLogUser.data.email) {
-      dispatch(getAppliedJobData(getLogUser.data.email));
+    if (appliedJobData) {
+      setAppliedJobs(appliedJobData);
     }
-  }, [dispatch, getLogUser]);
-
-  useEffect(() => {
-    if (applyedJobsPageData) {
-      setAppliedJobs(applyedJobsPageData);
-    }
-  }, [applyedJobsPageData]);
+  }, [appliedJobData]);
 
   return (
     <div className='appliedJobContainer'>

@@ -10,8 +10,32 @@ import SendProposalPage from './pages/SendProposalPage';
 import AppliedJob from './pages/AppliedJob';
 import ViewProposalPage from './pages/ViewProposalPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import { useEffect, useState } from 'react';
+import { getLoggeduserDatafromlocStr, getUsersWithRoleHirer } from './utils/localStorageHelpers';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAllHirerData, setUserData } from './store/Slice';
 
 function App() {
+  const dispatch = useDispatch();
+  const logedUserData = useSelector((state) => state.Auth.logedUserData);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadUserData = async () => {
+      let logedUserResult = getLoggeduserDatafromlocStr();
+      dispatch(setUserData(logedUserResult));
+      let JobsData = getUsersWithRoleHirer();
+      dispatch(setAllHirerData(JobsData));
+      setLoading(false);
+    };
+
+    loadUserData();
+  }, [dispatch]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Router>
       <Header />
@@ -20,20 +44,20 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route
           path="/createjobpost"
-          element={<ProtectedRoute element={<CreateJobPost />} allowedRoles={['Hirer']} />}
+          element={<ProtectedRoute element={<CreateJobPost />} />}
         />
         <Route
           path="/closejobpost"
-          element={<ProtectedRoute element={<ClosejobPost />} allowedRoles={['Hirer']} />}
+          element={<ProtectedRoute element={<ClosejobPost />} />}
         />
         <Route path="/jobdetail/:id" element={<JobDetailPage />} />
         <Route
           path="/proposal/:id"
-          element={<ProtectedRoute element={<SendProposalPage />} allowedRoles={['Freelancer']} />}
+          element={<ProtectedRoute element={<SendProposalPage />} />}
         />
         <Route
           path="/applyedjobs"
-          element={<ProtectedRoute element={<AppliedJob />} allowedRoles={['Freelancer']} />}
+          element={<ProtectedRoute element={<AppliedJob />} />}
         />
         <Route
           path="/proposals"
