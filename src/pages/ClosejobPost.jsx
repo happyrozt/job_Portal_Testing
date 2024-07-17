@@ -45,10 +45,11 @@ function ClosejobPost() {
               <p>Location: {job.location}</p>
               <p>Work Mode: {job.workMode}</p>
               <p>Skill: {job.skill}</p>
-              <p>Salary: {job.selry}</p>
+              <p>Salary: {job.salary}</p>
               <p>Status: {job.status}</p>
               <div className='job-status-buttondiv'>
-              {job.status === "active" ? (<button className='close-post-Button' onClick={() => handleStatus(job.id, job.email)}>
+              {job.status === "active" ? (
+                <button className='close-post-Button' onClick={() => handleStatus(job.id, job.email)}>
                 Close Post
               </button>) : (
                 <button className='active-post-Button' onClick={() => handleStatus(job.id, job.email)}>

@@ -20,7 +20,7 @@ function AppliedJob() {
       setAppliedJobs(appliedJobData);
     }
   }, [appliedJobData]);
-
+console.log(appliedJobs,"jjj")
   return (
     <div className='appliedJobContainer'>
       <h2 className='appled-job-title'>Applied Jobs</h2>
@@ -33,7 +33,7 @@ function AppliedJob() {
             <p>Location: {job.location}</p>
             <p>Work Mode: {job.workMode}</p>
             <p>Skill: {job.skill}</p>
-            <p>Salary: {job.selry}</p>
+            <p>Salary: {job.salary}</p>
             <p>Status : {job.status}</p>
           </div>
         ))

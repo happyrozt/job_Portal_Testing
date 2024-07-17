@@ -20,7 +20,7 @@ const dispatch = useDispatch();
     location: '',
     workMode: '',
     description: '',
-    selry: '',
+    salary: '',
   });
 
   const [errors, setErrors] = useState({
@@ -31,7 +31,7 @@ const dispatch = useDispatch();
     location: '',
     workMode: '',
     description: '',
-    selry: '',
+    salary: '',
   });
 
   const clearState = ()=>{
@@ -43,7 +43,7 @@ const dispatch = useDispatch();
       location: '',
       workMode: '',
       description: '',
-      selry: '',
+      salary: '',
     })
   }
 
@@ -99,7 +99,7 @@ const dispatch = useDispatch();
     { label: 'Location', type: 'text', placeholder: 'Location', name: 'location' },
     { label: 'Work Mode', type: 'text', placeholder: 'Work Mode', name: 'workMode' },
     { label: 'Description', type: 'text', placeholder: 'Description', name: 'description' },
-    { label: 'Selry', type: 'text', placeholder: 'Requirements', name: 'selry' },
+    { label: 'Salary', type: 'text', placeholder: 'Salary', name: 'salary' },
   ];
 
   return (
