@@ -40,7 +40,7 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/job_Portal_Testing/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route
           path="/job_Portal_Testing/createjobpost"
