@@ -43,25 +43,25 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route
-          path="/createjobpost"
+          path="/job_Portal_Testing/createjobpost"
           element={<ProtectedRoute element={<CreateJobPost />} />}
         />
         <Route
-          path="/closejobpost"
+          path="/job_Portal_Testing/closejobpost"
           element={<ProtectedRoute element={<ClosejobPost />} />}
         />
-        <Route path="/jobdetail/:id" element={<JobDetailPage />} />
+        <Route path="/job_Portal_Testing/jobdetail/:id" element={<JobDetailPage />} />
         <Route
-          path="/proposal/:id"
+          path="/job_Portal_Testing/proposal/:id"
           element={<ProtectedRoute element={<SendProposalPage />} />}
         />
         <Route
-          path="/applyedjobs"
+          path="/job_Portal_Testing/applyedjobs"
           element={<ProtectedRoute element={<AppliedJob />} />}
         />
         <Route
-          path="/proposals"
-          element={<ProtectedRoute element={<ViewProposalPage />} allowedRoles={['Hirer']} />}
+          path="/job_Portal_Testing/proposals"
+          element={<ProtectedRoute element={<ViewProposalPage />} />}
         />
         {/* Catch-all route for undefined paths */}
         <Route path="*" element={<Navigate to="/" />} />
