@@ -43,18 +43,18 @@ export default function Header() {
             <div className='nav-bar'>
                 <div className='nav-liiks'>
                     <div className='company-name'>Zasya</div>
-                    <a href='/'>Home</a>
+                    <a href='/job_Portal_Testing/'>Home</a>
                     {isUserRole === "Freelancer" && (
                         <>
-                            <a href='/applyedjobs'>Applied Jobs</a>
+                            <a href='/job_Portal_Testing/applyedjobs'>Applied Jobs</a>
                         </>
                     )}
 
                     {isUserRole === "Hirer" && (
                         <>
-                            <a href='/createjobpost'>Create Job Post</a>
-                            <a href='/proposals'>View Proposal</a>
-                            <a href='/closejobpost'>Closed Jobs</a>
+                            <a href='/job_Portal_Testing/createjobpost'>Create Job Post</a>
+                            <a href='/job_Portal_Testing/proposals'>View Proposal</a>
+                            <a href='/job_Portal_Testing/closejobpost'>Closed Jobs</a>
                         </>
                     )}
                 </div>
