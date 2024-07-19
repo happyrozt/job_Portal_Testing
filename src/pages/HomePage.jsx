@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkFreeLancerJobApplication, userSelectedJob } from '../store/Slice';
-import { checkFreelancerApplicationStatus } from '../utils/localStorageHelpers';
+import { checkFreeLancerJobApplication, setUserData, userSelectedJob } from '../store/Slice';
+import { checkFreelancerApplicationStatus, getLoggeduserDatafromlocStr } from '../utils/localStorageHelpers';
 import JobListingCard from '../components/card/JobListingCard';
 
 function HomePage() {
@@ -14,6 +14,7 @@ function HomePage() {
   
 
   useEffect(() => {
+  
     if (jobsData && jobsData.length > 0) {
 
       const jobs = jobsData.reduce((acc, user) => {
@@ -26,16 +27,16 @@ function HomePage() {
       }, []);
       setHirerJobs(jobs.reverse());
     }
-  }, [jobsData]);
+  }, [jobsData,dispatch]);
 
   const handleClick = (clickedData) => {
     if (isUserRole === 'Freelancer') {
       const result =  checkFreelancerApplicationStatus({freelancerEmail:logedUserData.data.email, jobId:clickedData.id} );
        dispatch( checkFreeLancerJobApplication(result))
         dispatch(userSelectedJob(clickedData));
-        navigate(`/job_Portal_Testing/jobdetail/${clickedData.id}`);
+        navigate(`/jobdetail/${clickedData.id}`);
     } else if (isUserRole === null) {
-      navigate('/job_Portal_Testing/login');
+      navigate('/login');
     }
   };
 

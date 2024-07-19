@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import '../../App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkLoggedIn, setUserRole, setUserData, setSearchedData, userLogout } from '../../store/Slice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { filterHirersByTitle } from '../../utils/localStorageHelpers';
 
 
 export default function Header() {
-    const {isUserRole,logedUserData} = useSelector((state)=>state.Auth)
+    const { isUserRole, logedUserData } = useSelector((state) => state.Auth)
     const [searchQuery, setSearchQuery] = useState('');
- 
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -20,10 +20,10 @@ export default function Header() {
     const handleSearch = (event) => {
         const query = event.target.value;
         setSearchQuery(query);
-       let searchJobByUser = filterHirersByTitle(query)
+        let searchJobByUser = filterHirersByTitle(query)
         dispatch(setSearchedData(searchJobByUser))
-       
-      };
+
+    };
 
     const handleLogout = () => {
         dispatch(userLogout(null))
@@ -33,28 +33,28 @@ export default function Header() {
     };
 
     useEffect(() => {
-        if (logedUserData  && isUserRole == null) {
+        if (logedUserData && isUserRole == null) {
             dispatch(setUserRole(logedUserData.data.role));
         }
-    }, [logedUserData , dispatch]);
+    }, [logedUserData, dispatch]);
 
     return (
         <div className='header-component'>
             <div className='nav-bar'>
                 <div className='nav-liiks'>
                     <div className='company-name'>Zasya</div>
-                    <a href='/'>Home</a>
+                    <Link to='/'>Home</Link>
                     {isUserRole === "Freelancer" && (
                         <>
-                            <a href='/job_Portal_Testing/applyedjobs'>Applied Jobs</a>
+                            <Link to='/applyedjobs'>Applied Jobs</Link>
                         </>
                     )}
 
                     {isUserRole === "Hirer" && (
                         <>
-                            <a href='/job_Portal_Testing/createjobpost'>Create Job Post</a>
-                            <a href='/job_Portal_Testing/proposals'>View Proposal</a>
-                            <a href='/job_Portal_Testing/closejobpost'>Closed Jobs</a>
+                            <Link to="/createjobpost">Create Job Post</Link>
+                            <Link to="/proposals">View Proposal</Link>
+                            <Link to="/closejobpost">Closed Jobs</Link>
                         </>
                     )}
                 </div>
@@ -68,7 +68,7 @@ export default function Header() {
                             onChange={handleSearch}
                         />
                     </div>
-                    {logedUserData === null  ? (
+                    {logedUserData === null ? (
                         <>
                             <button className='register-button' onClick={handleNavigate}>Login</button>
                         </>
