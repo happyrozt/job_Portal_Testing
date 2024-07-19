@@ -13,7 +13,7 @@ function JobDetailPage() {
     const {selectedJob,isApplied} = useSelector((state)=>state.Auth)
     const handleApply = () => {
         if(isApplied=== false){
-            navigate(`/proposal/${id}`);
+            navigate(`/job_Portal_Testing/proposal/${id}`);
         }else{
             alert('You have already applied for this job.');
         }

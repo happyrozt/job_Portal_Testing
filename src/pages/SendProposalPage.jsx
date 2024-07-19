@@ -83,7 +83,7 @@ function SendProposalPage() {
     });
     setProposal({ resume: '', personalInfo: '' });
     setResumeFile(null);
-     navigate('/appliedjobs');
+     navigate('/job_Portal_Testing/appliedjobs');
     console.log('Proposal submitted:', formData);
   };
 

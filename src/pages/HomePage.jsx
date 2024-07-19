@@ -33,9 +33,9 @@ function HomePage() {
       const result =  checkFreelancerApplicationStatus({freelancerEmail:logedUserData.data.email, jobId:clickedData.id} );
        dispatch( checkFreeLancerJobApplication(result))
         dispatch(userSelectedJob(clickedData));
-        navigate(`/jobdetail/${clickedData.id}`);
+        navigate(`/job_Portal_Testing/jobdetail/${clickedData.id}`);
     } else if (isUserRole === null) {
-      navigate('/login');
+      navigate('/job_Portal_Testing/login');
     }
   };
 
