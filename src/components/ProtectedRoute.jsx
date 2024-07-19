@@ -6,7 +6,7 @@ const ProtectedRoute = ({ element}) => {
   const  logedUserData = useSelector((state) => state.Auth.logedUserData);
 
   if (!logedUserData) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/job_Portal_Testing" replace />;
   }
 
   return element;

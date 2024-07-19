@@ -43,7 +43,7 @@ export default function Header() {
             <div className='nav-bar'>
                 <div className='nav-liiks'>
                     <div className='company-name'>Zasya</div>
-                    <Link to='/'>Home</Link>
+                    <Link to='/job_Portal_Testing'>Home</Link>
                     {isUserRole === "Freelancer" && (
                         <>
                             <Link to='/applyedjobs'>Applied Jobs</Link>
