@@ -6,6 +6,6 @@ export default defineConfig({
   base: '/job_Portal_Testing/',
   plugins: [react()],
   server: {
-    historyApiFallback: true, // Add this line
+    historyApiFallback: true, 
   },
 })
