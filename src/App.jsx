@@ -37,7 +37,7 @@ function App() {
   }
 
   return (
-    <Router>
+    <Router basename='/job_Portal_Testing/'>
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
