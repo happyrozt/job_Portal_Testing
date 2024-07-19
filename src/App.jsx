@@ -5,7 +5,7 @@ import CreateJobPost from './pages/CreateJobPost';
 import HomePage from './pages/HomePage';
 import JobDetailPage from './pages/JobDetailPage';
 import Login from './pages/Login';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { MemoryRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import SendProposalPage from './pages/SendProposalPage';
 import AppliedJob from './pages/AppliedJob';
 import ViewProposalPage from './pages/ViewProposalPage';
